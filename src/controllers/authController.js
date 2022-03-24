@@ -1,4 +1,5 @@
 const usuarios = require('../../usuarios.json');
+const bcrypt = require('bcryptjs');
 
 // request.body = {
 //     login: 'alguma_coisa',
@@ -28,6 +29,14 @@ const authController = {
 
         console.log(usuarioEncotrado);
 
+        // quando usuarioEncotrado = undefined
+        if (!usuarioEncotrado) {
+            return response.status(401).render('login');
+        }
+
+        // usuarioEncotrado.senha =$2a$10$6jASNZlXOTvKJll.lfx.k.nWBs4pp7t.tuW/kABI0u9p1XBcVJqty
+
+        // senha = 123456
     },
 }
 
