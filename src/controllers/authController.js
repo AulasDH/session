@@ -27,8 +27,6 @@ const authController = {
         // variavel usuarioEncontrado
         const usuarioEncotrado = usuarios.find((usuario) => usuario.login === login);
 
-        console.log(usuarioEncotrado);
-
         // quando usuarioEncotrado = undefined
         if (!usuarioEncotrado) {
             return response.status(401).render('login');
@@ -37,6 +35,16 @@ const authController = {
         // usuarioEncotrado.senha =$2a$10$6jASNZlXOTvKJll.lfx.k.nWBs4pp7t.tuW/kABI0u9p1XBcVJqty
 
         // senha = 123456
+
+        const ehSenhaCorreta = bcrypt.compareSync(senha, usuarioEncotrado.senha);
+
+        if (!ehSenhaCorreta) {
+            return response.status(401).render('login');
+        }
+
+        request.session.autorizado = true;
+
+        return response.redirect('/admin');
     },
 }
 
